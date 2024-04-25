@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-func main() {
+func url() {
 	response, err := http.Get("http://www.google.com/robots.txt")
 
 	if err != nil {
