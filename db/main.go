@@ -23,7 +23,7 @@ func main() {
 	defer db.Close()
 
 	// 테이블 조회 쿼리
-	sql := "SELECT id, name, url FROM site" // 테이블 이름 변경 필요
+	sql := "SELECT id, name, http_client FROM site" // 테이블 이름 변경 필요
 
 	// 쿼리 실행
 	rows, err := db.Query(sql)
