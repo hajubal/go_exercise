@@ -12,6 +12,8 @@ func main() {
 
 	fmt.Println(<-messages)
 	fmt.Println(<-messages)
+
+	channelRange()
 }
 
 // channel을 사용하지 않으면 go 루틴으로 송신 로직 후, 수신로직이 없으면 Lock이 발생한다.
@@ -19,4 +21,33 @@ func error_case() {
 	c := make(chan int)
 	c <- 1           //수신루틴이 없으므로 데드락
 	fmt.Println(<-c) //코멘트해도 데드락 (별도의 Go루틴없기 때문)
+}
+
+func channelRange() {
+	ch := make(chan int, 2)
+
+	//채널에 송신
+	ch <- 1
+	ch <- 2
+
+	//채널을 닫는다
+	close(ch)
+
+	//방법 1
+	// 채널이 닫힌 것을 감지할 때까지 계속 수신
+	/*
+		for {
+			if i, success := <-ch; success {
+				println(i)
+			} else {
+				break
+			}
+		}
+	*/
+
+	// 방법 2
+	// 위 표현과 동일한 채널 range 문
+	for i := range ch {
+		println(i)
+	}
 }
